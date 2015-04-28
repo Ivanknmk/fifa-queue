@@ -1,6 +1,6 @@
 package controllers
 
-import models.Game
+import models.{Queue, Game}
 import play.api.mvc._
 import org.slf4j.{LoggerFactory, Logger}
 
@@ -12,8 +12,9 @@ object Application extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
-  def queue() = Action { request =>
-    val body: AnyContent = request.body
-    Ok(body.toString)
+  def queue() = Action(parse.urlFormEncoded) { request =>
+    val body = request.body
+
+    Ok(body("command") + " " + body("text"))
   }
 }
