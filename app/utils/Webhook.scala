@@ -13,6 +13,8 @@ object Webhook {
 
     val futureResponse: Future[WSResponse] = holder.post(Map("payload" ->
       Seq("{\"channel\": \"#fifasquare\", \"username\": \"fifabot\", \"text\": "+ text + ", \"icon_emoji\": \":ghost:\"}")))
+
+
   }
 
 }
