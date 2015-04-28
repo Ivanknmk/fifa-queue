@@ -1,10 +1,12 @@
 package controllers
 
-import models.Queue
-import play.api._
+import models.Game
 import play.api.mvc._
+import org.slf4j.{LoggerFactory, Logger}
 
 object Application extends Controller {
+
+  private final val logger: Logger = LoggerFactory.getLogger(classOf[Game])
 
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
@@ -12,13 +14,6 @@ object Application extends Controller {
 
   def queue() = Action { request =>
     val body: AnyContent = request.body
-    val textBody: Option[String] = body.asText
-
-    // Expecting text body
-    textBody.map { text =>
-      Ok("Got: " + text)
-    }.getOrElse {
-      BadRequest("Expecting text/plain request body")
-    }
+    Ok(body.toString)
   }
 }
