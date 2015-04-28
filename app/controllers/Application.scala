@@ -3,6 +3,7 @@ package controllers
 import models.{Queue, Game}
 import play.api.mvc._
 import org.slf4j.{LoggerFactory, Logger}
+import utils.Webhook
 
 object Application extends Controller {
 
@@ -15,6 +16,8 @@ object Application extends Controller {
   def queue() = Action(parse.urlFormEncoded) { request =>
     val body = request.body
 
-    Ok(body("command") + " " + body("text"))
+    Webhook.send(body("text").head)
+
+    Ok(body("command").head + " " + body("text").head)
   }
 }
