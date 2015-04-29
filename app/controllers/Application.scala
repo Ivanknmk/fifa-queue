@@ -21,12 +21,12 @@ object Application extends Controller {
   }
 
   def queue() = Action.async { request =>
-    val body = request.body.asFormUrlEncoded
+    val body: Map[String, Seq[String]]= request.body.asFormUrlEncoded.get
 
     Logger.debug(body.toString())
     Logger.error(body.toString())
 
-    val text = body.get("text").toString()
+    val text: String = body.get("text").get(0)
 
     val requestHolder: WSRequestHolder = WS.url(url)
 
