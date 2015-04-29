@@ -5,6 +5,7 @@ import models.{Queue, Game}
 import play.api.libs.ws.{WSResponse, WS, WSRequestHolder}
 import play.api.mvc._
 import play.api.Play.current
+//needed for implicits
 import scala.concurrent.ExecutionContext.Implicits.global
 
 import play.api.Logger
@@ -25,7 +26,7 @@ object Application extends Controller {
     Logger.debug(body.toString())
     Logger.error(body.toString())
 
-    val text = body.get("text")
+    val text = body.get("text").toString()
 
     val requestHolder: WSRequestHolder = WS.url(url)
 
