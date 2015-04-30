@@ -47,7 +47,7 @@ object Application extends Controller {
       .withRequestTimeout(300)
 
     val futureResponse: Future[WSResponse] = requestHolder
-      .post(Map("payload" -> Seq(Queue.action(user_name, text))))
+      .post(Map("payload" -> Seq(Queue.action("@" + user_name, text))))
 
     futureResponse.map(response => {
       Logger.debug(response.body)
