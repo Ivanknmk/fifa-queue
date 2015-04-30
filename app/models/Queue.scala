@@ -72,7 +72,7 @@ object Queue{
   def eliminarTodo(author: String): String = {
     if (authorized(author, List(admin))){
       queue.dequeueAll((game: Game) => true)
-      "{\"text\": \" @" + author + " has dequeued everything.\" , \"link_names\": 1}"
+      "{\"text\": \" " + author + " has dequeued everything.\" , \"link_names\": 1}"
     }
     else
       "{\"text\": \" " + author + " you are not authorized to dequeue. Please contact " + admin + "\" , \"link_names\": 1}"
