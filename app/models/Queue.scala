@@ -20,6 +20,7 @@ object Queue{
   val print = "print".insensitive
   val add = "add".insensitive
   val flush = "flush".insensitive
+  val current = "current".insensitive
   val admin = "ivanknmk"
 
 
@@ -29,6 +30,7 @@ object Queue{
     case print()  => todo(author)
     case add()  => agregar(author, Game(Player(text(1)), Player(text(2))))
     case flush()  => eliminarTodo(author)
+    case current()  => actual(author)
     case _ => "Operation doesn't exist"
   }
 
@@ -71,6 +73,13 @@ object Queue{
     }
     else
       "{\"text\": \" @" + author + " you are not authorized to dequeue. Please contact @" + admin + "\" , \"link_names\": 1}"
+  }
+
+  def actual(author: String): String ={
+    if (queue.isEmpty)
+      "{\"text\": \" @" + author + " there's nothing in the queue.\" , \"link_names\": 1}"
+    else
+      "{\"text\": \" @" + author + " current game: " + queue.head + "\" , \"link_names\": 1}"
   }
 
   def authorized(author: String, allowed: List[String]): Boolean = allowed.contains(author)
