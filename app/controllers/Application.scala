@@ -29,16 +29,16 @@ object Application extends Controller {
     if ( body.get("token").get(0).toString != token )
       BadRequest("You are not authorized to use this bot")
 
-    val team_id: String = body.get("team_id").get(0)
-    val team_domain: String = body.get("team_domain").get(0)
+//    val team_id: String = body.get("team_id").get(0)
+//    val team_domain: String = body.get("team_domain").get(0)
+//
+//    val channel_id: String = body.get("channel_id").get(0)
+//    val channel_name: String = body.get("channel_name").get(0)
 
-    val channel_id: String = body.get("channel_id").get(0)
-    val channel_name: String = body.get("channel_name").get(0)
-
-    val user_id: String = body.get("user_id").get(0)
+//    val user_id: String = body.get("user_id").get(0)
     val user_name: String = body.get("user_name").get(0)
 
-    val text: String = body.get("text").get(0)
+    val text: Array[String] = body.get("text").get(0).split(" ")
 
     val requestHolder: WSRequestHolder = WS.url(url)
 
@@ -47,7 +47,7 @@ object Application extends Controller {
       .withRequestTimeout(300)
 
     val futureResponse: Future[WSResponse] = requestHolder
-      .post(Map("payload" -> Seq("{\"text\": \" @" + user_name + " says: " + text + "\" , \"link_names\": 1}")))
+      .post(Map("payload" -> Seq(Queue.action(user_name, text))))
 
     futureResponse.map(response => {
       Logger.debug(response.body)
