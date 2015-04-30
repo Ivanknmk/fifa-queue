@@ -33,7 +33,10 @@ object Queue{
   }
 
   def quitar(author: String): String = {
-    if (authorized(author, List(queue.head.player1.toString, queue.head.player2.toString, admin) ) ) {
+    if (queue.isEmpty)
+      "{\"text\": \" @" + author + " there's nothing in the queue.\" , \"link_names\": 1}"
+
+    else if (authorized(author, List(queue.head.player1.toString, queue.head.player2.toString, admin) ) ) {
       queue.dequeue()
       "{\"text\": \" @" + author + " has triggered the next game. " + queue.head + " you are next!\" , \"link_names\": 1}"
     }
@@ -44,7 +47,14 @@ object Queue{
   }
 
   def todo(author: String): String = {
-    val queueAsString = queue mkString("\\n")
+
+    val queueAsString = {
+      if (queue.isEmpty)
+        "null"
+      else
+        queue mkString("::\\n::")
+
+    }
     "{\"text\": \" @" + author + " here's the queue:\\n" + queueAsString + "\" , \"link_names\": 1}"
 
   }
