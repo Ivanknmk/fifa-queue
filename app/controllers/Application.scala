@@ -14,8 +14,10 @@ import scala.concurrent.Future
 
 object Application extends Controller {
 
-  val url = s"https://hooks.slack.com/services/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"
-  val token = s"wd8GFk1rs29Lyp5X16l6B4Kw"
+  //La url del hook que te da slack
+  val url = s""
+  //Token de tu servicio
+  val token = s""
 
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
